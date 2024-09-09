@@ -8,6 +8,7 @@ using EntityStates;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
+using System.Runtime.CompilerServices;
 
 namespace IEye.StageRearrange
 {
@@ -18,7 +19,9 @@ namespace IEye.StageRearrange
         private ConfigEntry<int> villageStage;
         private ConfigEntry<int> templeStage;
         private ConfigEntry<int> habitatStage;
+        private ConfigEntry<int> lakesStage;
         private ConfigEntry<bool> changePathOfColossus;
+        private ConfigEntry<bool> nightStageAsAlt;
 
         public const string PLUGINGUID = "IEye.StageRearrange";
         public const string PluginName = "StageRearrange";
@@ -38,17 +41,24 @@ namespace IEye.StageRearrange
                 "Treeborn Colony Stage",
                 3,
                 "Which regular stage Shattered Abodes should be(default 3)(set to 0 for no addition");
+            lakesStage = Config.Bind("General",
+                "Verdant Falls Stage",
+                1,
+                "Which stage verdant falls should be");
             changePathOfColossus = Config.Bind("General",
                 "Change Path of Colossus",
                 true,
                 "Change Path of Colossus to start from Reformed Altar regards of point in stages");
-            
+            nightStageAsAlt = Config.Bind("General",
+                "Night stages as alt",
+                false,
+                "Night stages become alt stages instead of looped stages")
 
 
             Log.Init(Logger);
 
             //Log.Message(villageStage.Value);
-            new ChangeStages().Init(villageStage.Value,templeStage.Value,habitatStage.Value);
+            new ChangeStages().Init(villageStage.Value,templeStage.Value,habitatStage.Value, lakesStage.Value, nightStageAsAlt);
             if (changePathOfColossus.Value)
             {
                 new ChangePathOfCollosus().Init();
@@ -78,14 +88,22 @@ namespace IEye.StageRearrange
         private static SceneDef temple = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/lemuriantemple/lemuriantemple.asset").WaitForCompletion();
         private static SceneDef habitat = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/habitat/habitat.asset").WaitForCompletion();
         private static SceneDef habitatnight = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/habitatfall/habitatfall.asset").WaitForCompletion();
-
-        public void Init(int villageStage, int templeStage, int habitatStage)
+        private static SceneDef lakes;
+        private static SceneDef lakesnight;
+        public void Init(int villageStage, int templeStage, int habitatStage, int lakesStage, bool nightAsAlt)
         {
             if (villageStage == 1)
                 return;
 
+            /*
             village.shouldUpdateSceneCollectionAfterLooping = false;
             villagenight.shouldUpdateSceneCollectionAfterLooping = false;
+            temple.shouldUpdateSceneCollectionAfterLooping = false;
+            habitat.shouldUpdateSceneCollectionAfterLooping = false;
+            habitatnight.shouldUpdateSceneCollectionAfterLooping = false;
+            lakes.shouldUpdateSceneCollectionAfterLooping = false;
+            lakesnight.shouldUpdateSceneCollectionAfterLooping = false;
+            */
 
             ArrayUtils.ArrayRemoveAtAndResize(ref loopSgStage1._sceneEntries, 6);
             ArrayUtils.ArrayRemoveAtAndResize(ref sgStage1._sceneEntries, 6);
@@ -120,7 +138,19 @@ namespace IEye.StageRearrange
                 weight = 1,
                 weightMinusOne = 0
             };
-            
+            SceneCollection.SceneEntry Lakes = new SceneCollection.SceneEntry
+            {
+                sceneDef = lakes,
+                weight = 1,
+                weightMinusOne = 0,
+            };
+            SceneCollection.SceneEntry LakesNight = new SceneCollection.SceneEntry
+            {
+                sceneDef = lakes,
+                weight = 1,
+                weightMinusOne = 0,
+            };
+
             switch (villageStage)
             {
                 case 2:
@@ -128,6 +158,11 @@ namespace IEye.StageRearrange
                     villagenight.stageOrder = 2;
                     ArrayUtils.ArrayAppend(ref sgStage2._sceneEntries, VillageDay);
                     ArrayUtils.ArrayAppend(ref loopSgStage2._sceneEntries, VillageNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage2._sceneEntries, VillageNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage2._sceneEntries, VillageDay);
+                    }
                     village.destinationsGroup = sgStage3;
                     villagenight.destinationsGroup = loopSgStage3;
                     break;
@@ -136,6 +171,11 @@ namespace IEye.StageRearrange
                     villagenight.stageOrder = 3;
                     ArrayUtils.ArrayAppend(ref sgStage3._sceneEntries, VillageDay);
                     ArrayUtils.ArrayAppend(ref loopSgStage3._sceneEntries, VillageNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage3._sceneEntries, VillageNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage3._sceneEntries, VillageDay);
+                    }
                     village.destinationsGroup = sgStage4;
                     villagenight.destinationsGroup = loopSgStage4;
                     break;
@@ -144,6 +184,11 @@ namespace IEye.StageRearrange
                     villagenight.stageOrder = 4;
                     ArrayUtils.ArrayAppend(ref sgStage4._sceneEntries, VillageDay);
                     ArrayUtils.ArrayAppend(ref loopSgStage4._sceneEntries, VillageNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage4._sceneEntries, VillageNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage4._sceneEntries, VillageDay);
+                    }
                     village.destinationsGroup = sgStage5;
                     villagenight.destinationsGroup = loopSgStage5;
                     break;
@@ -152,6 +197,11 @@ namespace IEye.StageRearrange
                     villagenight.stageOrder = 5;
                     ArrayUtils.ArrayAppend(ref sgStage5._sceneEntries, VillageDay);
                     ArrayUtils.ArrayAppend(ref loopSgStage5._sceneEntries, VillageNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage5._sceneEntries, VillageNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage5._sceneEntries, VillageDay);
+                    }
                     village.destinationsGroup = sgStage1;
                     villagenight.destinationsGroup = loopSgStage1;
                     break;
@@ -161,6 +211,11 @@ namespace IEye.StageRearrange
                     villagenight.stageOrder = 2;
                     ArrayUtils.ArrayAppend(ref sgStage2._sceneEntries, VillageDay);
                     ArrayUtils.ArrayAppend(ref loopSgStage2._sceneEntries, VillageNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage2._sceneEntries, VillageNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage2._sceneEntries, VillageDay);
+                    }
                     village.destinationsGroup = sgStage3;
                     villagenight.destinationsGroup = loopSgStage3;
                     break;
@@ -214,6 +269,11 @@ namespace IEye.StageRearrange
                     habitatnight.stageOrder = 1;
                     ArrayUtils.ArrayAppend(ref sgStage1._sceneEntries, Habitat);
                     ArrayUtils.ArrayAppend(ref loopSgStage1._sceneEntries, HabitatNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage1._sceneEntries, HabitatNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage1._sceneEntries, Habitat);
+                    }
                     habitat.destinationsGroup = sgStage2;
                     habitatnight.destinationsGroup = loopSgStage2;
                     break;
@@ -222,6 +282,11 @@ namespace IEye.StageRearrange
                     habitatnight.stageOrder = 2;
                     ArrayUtils.ArrayAppend(ref sgStage2._sceneEntries, Habitat);
                     ArrayUtils.ArrayAppend(ref loopSgStage2._sceneEntries, HabitatNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage2._sceneEntries, HabitatNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage2._sceneEntries, Habitat);
+                    }
                     habitat.destinationsGroup = sgStage3;
                     habitatnight.destinationsGroup = loopSgStage3;
                     break;
@@ -230,6 +295,11 @@ namespace IEye.StageRearrange
                     habitatnight.stageOrder = 3;
                     ArrayUtils.ArrayAppend(ref sgStage3._sceneEntries, Habitat);
                     ArrayUtils.ArrayAppend(ref loopSgStage3._sceneEntries, HabitatNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage3._sceneEntries, HabitatNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage3._sceneEntries, Habitat);
+                    }
                     habitat.destinationsGroup = sgStage4;
                     habitatnight.destinationsGroup = loopSgStage4;
                     break;
@@ -238,6 +308,11 @@ namespace IEye.StageRearrange
                     habitatnight.stageOrder = 4;
                     ArrayUtils.ArrayAppend(ref sgStage4._sceneEntries, Habitat);
                     ArrayUtils.ArrayAppend(ref loopSgStage4._sceneEntries, HabitatNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage4._sceneEntries, HabitatNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage4._sceneEntries, Habitat);
+                    }
                     habitat.destinationsGroup = sgStage5;
                     habitatnight.destinationsGroup = loopSgStage5;
                     break;
@@ -246,8 +321,77 @@ namespace IEye.StageRearrange
                     habitatnight.stageOrder = 5;
                     ArrayUtils.ArrayAppend(ref sgStage5._sceneEntries, Habitat);
                     ArrayUtils.ArrayAppend(ref loopSgStage5._sceneEntries, HabitatNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage5._sceneEntries, HabitatNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage5._sceneEntries, Habitat);
+                    }
                     habitat.destinationsGroup = sgStage1;
                     habitatnight.destinationsGroup = loopSgStage1;
+                    break;
+                default:
+                    break;
+            }
+            switch (lakesStage)
+            {
+                case 1:
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage1._sceneEntries, LakesNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage1._sceneEntries, Lakes);
+                    }
+                    break;
+                case 2:
+                    lakes.stageOrder = 2;
+                    lakesnight.stageOrder = 2;
+                    ArrayUtils.ArrayAppend(ref sgStage2._sceneEntries, Lakes);
+                    ArrayUtils.ArrayAppend(ref loopSgStage2._sceneEntries, LakesNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage2._sceneEntries, LakesNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage2._sceneEntries, Lakes);
+                    }
+                    lakes.destinationsGroup = sgStage3;
+                    lakesnight.destinationsGroup = loopSgStage3;
+                    break;
+                case 3:
+                    lakes.stageOrder = 3;
+                    lakesnight.stageOrder = 3;
+                    ArrayUtils.ArrayAppend(ref sgStage3._sceneEntries, Lakes);
+                    ArrayUtils.ArrayAppend(ref loopSgStage3._sceneEntries, LakesNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage3._sceneEntries, LakesNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage3._sceneEntries, Lakes);
+                    }
+                    lakes.destinationsGroup = sgStage4;
+                    lakesnight.destinationsGroup = loopSgStage4;
+                    break;
+                case 4:
+                    lakes.stageOrder = 4;
+                    lakesnight.stageOrder = 4;
+                    ArrayUtils.ArrayAppend(ref sgStage4._sceneEntries, Lakes);
+                    ArrayUtils.ArrayAppend(ref loopSgStage4._sceneEntries, LakesNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage4._sceneEntries, LakesNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage4._sceneEntries, Lakes);
+                    }
+                    lakes.destinationsGroup = sgStage5;
+                    lakesnight.destinationsGroup = loopSgStage5;
+                    break;
+                case 5:
+                    lakes.stageOrder = 5;
+                    lakesnight.stageOrder = 5;
+                    ArrayUtils.ArrayAppend(ref sgStage5._sceneEntries, Lakes);
+                    ArrayUtils.ArrayAppend(ref loopSgStage5._sceneEntries, LakesNight);
+                    if (nightAsAlt)
+                    {
+                        ArrayUtils.ArrayAppend(ref sgStage5._sceneEntries, LakesNight);
+                        ArrayUtils.ArrayAppend(ref loopSgStage5._sceneEntries, Lakes);
+                    }
+                    lakes.destinationsGroup = sgStage1;
+                    lakesnight.destinationsGroup = loopSgStage1;
                     break;
                 default:
                     break;
@@ -268,6 +412,7 @@ namespace IEye.StageRearrange
         private static SceneDef templeDef = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/lemuriantemple/lemuriantemple.asset").WaitForCompletion();
         private static SceneDef habitatDef = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/habitat/habitat.asset").WaitForCompletion();
         private static SceneDef meridian = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/meridian/meridian.asset").WaitForCompletion();
+        private static SceneDef habitatNight;
 
         private static GameObject teleporter = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Teleporters/Teleporter1.prefab").WaitForCompletion();
 
