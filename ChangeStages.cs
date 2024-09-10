@@ -23,8 +23,8 @@ namespace IEye.StageRearrange
         private static SceneDef temple = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/lemuriantemple/lemuriantemple.asset").WaitForCompletion();
         private static SceneDef habitat = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/habitat/habitat.asset").WaitForCompletion();
         private static SceneDef habitatnight = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/habitatfall/habitatfall.asset").WaitForCompletion();
-        private static SceneDef lakes;
-        private static SceneDef lakesnight;
+        private static SceneDef lakes = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/lakes/lakes.asset").WaitForCompletion();
+        private static SceneDef lakesnight = Addressables.LoadAssetAsync<SceneDef>("RoR2/DLC2/lakesnight/lakesnight.asset").WaitForCompletion();
         public void Init(int villageStage, int templeStage, int habitatStage, int lakesStage, bool nightAsAlt)
         {
             if (villageStage == 1)
