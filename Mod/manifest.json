@@ -1,9 +1,9 @@
 {
     "name": "Stage_Rearrange",
 	"author": "IEye",
-    "version_number": "0.2.1",
+    "version_number": "0.3.0",
     "website_url": "https://github.com/i-eye/StageChanger",
-    "description": "Changes some stage numbers around for SotS stages. Featuring Path of Colossus improvement",
+    "description": "Rearange Stages! Visit Golden Dieback stage 3 without using a shrine?! Fix the Path of Colossus!",
     "dependencies":[	
 	"bbepis-BepInExPack-5.4.2117",
         "RiskofThunder-R2API_ContentManagement-1.0.6",

@@ -16,26 +16,26 @@ namespace IEye.StageRearrange
 
         public const string PLUGINGUID = "IEye.StageRearrange";
         public const string PluginName = "StageRearrange";
-        public const string PluginVersion = "0.2.1";
+        public const string PluginVersion = "0.3.0";
 
         public void Awake()
         {
             villageStage = Config.Bind("General",
                 "Shattered Abodes Stage",
                 2,
-                "Which stage Shattered Abodes should be(default 2)(only set from 1-5)");
+                "Which stage Shattered Abodes should be(only set from 1-5)");
             templeStage = Config.Bind("General",
                 "Reformed Altar Stage",
                 2,
-                "Which regular stage Reformed should be(default 2)(set to 0 for no addition)");
+                "Which regular stage Reformed should be(set to 0 for no addition)");
             habitatStage = Config.Bind("General",
                 "Treeborn Colony Stage",
                 3,
-                "Which regular stage Shattered Abodes should be(default 3)(set to 0 for no addition");
+                "Which regular stage Shattered Abodes should be(set to 0 for no addition)");
             lakesStage = Config.Bind("General",
                 "Verdant Falls Stage",
                 1,
-                "Which stage verdant falls should be");
+                "Which stage verdant falls should be(no change at default of 1)");
             changePathOfColossus = Config.Bind("General",
                 "Change Path of Colossus",
                 true,
@@ -43,13 +43,13 @@ namespace IEye.StageRearrange
             nightStageAsAlt = Config.Bind("General",
                 "Night stages as alt",
                 false,
-                "Night stages become alt stages instead of looped stages")
+                "Night stages become alt stages instead of looped stages");
 
 
             Log.Init(Logger);
 
             //Log.Message(villageStage.Value);
-            new ChangeStages().Init(villageStage.Value,templeStage.Value,habitatStage.Value, lakesStage.Value, nightStageAsAlt);
+            new ChangeStages().Init(villageStage.Value,templeStage.Value,habitatStage.Value, lakesStage.Value, nightStageAsAlt.Value);
             if (changePathOfColossus.Value)
             {
                 new ChangePathOfCollosus().Init();
