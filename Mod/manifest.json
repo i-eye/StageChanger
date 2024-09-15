@@ -1,7 +1,7 @@
 {
     "name": "Stage_Rearrange",
 	"author": "IEye",
-    "version_number": "0.3.0",
+    "version_number": "0.3.2",
     "website_url": "https://github.com/i-eye/StageChanger",
     "description": "Rearange Stages! Visit Golden Dieback stage 3 without using a shrine?! Fix the Path of Colossus!",
     "dependencies":[	
