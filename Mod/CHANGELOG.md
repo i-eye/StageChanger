@@ -1,6 +1,10 @@
 
 #Changelog
 
+## 4.0.0
+- Risk of Options support
+- Everything should actually actually work now
+
 ## 0.3.2
 - Every thing should be working as intended
 - Night stages show up
