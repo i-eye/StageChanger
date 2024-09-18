@@ -15,12 +15,12 @@ namespace IEye.StageRearrange
         public ConfigEntry<int> habitatStage;
         public ConfigEntry<int> lakesStage;
         public ConfigEntry<int> hatcheryStage;
-        public ConfigEntry<bool> changePathOfColossus;
+        //public ConfigEntry<bool> changePathOfColossus;
         public ConfigEntry<bool> nightStageAsAlt;
 
         public const string PLUGINGUID = "IEye.StageRearrange";
         public const string PluginName = "StageRearrange";
-        public const string PluginVersion = "0.4.0";
+        public const string PluginVersion = "0.4.1";
         public static StageChangerPlugin instance;
         public static ChangeStages changer;
 
@@ -35,10 +35,10 @@ namespace IEye.StageRearrange
             changer = new ChangeStages();
             changer.Init();
             changer.EditStages();
-            if (changePathOfColossus.Value)
-            {
+            //if (changePathOfColossus.Value) THIS FUCKING FUCKER DIE DIE DIE DIE DIE
+            //{
                 new ChangePathOfCollosus().Init();
-            }
+            //}
             On.RoR2.Run.Start += Run_Start;
             
 
@@ -73,10 +73,10 @@ namespace IEye.StageRearrange
             //    "Helminth Hatchery Stager",
             //    5,
             //    "Why would you change this");
-            changePathOfColossus = base.Config.Bind("General",
+            /*changePathOfColossus = base.Config.Bind("General",
                 "Change Path of Colossus",
                 true,
-                "Change Path of Colossus to start from Reformed Altar regards of point in stages");
+                "Change Path of Colossus to start from Reformed Altar regards of point in stages");*/
             nightStageAsAlt = base.Config.Bind("General",
                 "Night stages as alt",
                 false,
@@ -85,7 +85,7 @@ namespace IEye.StageRearrange
             ModSettingsManager.AddOption(new IntSliderOption(templeStage, new IntSliderConfig() { max = 5, min = 0 }));
             ModSettingsManager.AddOption(new IntSliderOption(habitatStage, new IntSliderConfig() { max = 5, min = 0 }));
             ModSettingsManager.AddOption(new IntSliderOption(lakesStage, new IntSliderConfig() { max = 5, min = 0 }));
-            ModSettingsManager.AddOption(new CheckBoxOption(changePathOfColossus, true));
+            //ModSettingsManager.AddOption(new CheckBoxOption(changePathOfColossus, true));
             ModSettingsManager.AddOption(new CheckBoxOption(nightStageAsAlt));
         }
     }

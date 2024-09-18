@@ -1,7 +1,12 @@
 
 #Changelog
 
-## 4.0.0
+
+## 0.4.1
+- The WORST solution
+
+
+## 0.4.0
 - Risk of Options support
 - Everything should actually actually work now
 

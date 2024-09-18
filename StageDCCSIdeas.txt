@@ -1,0 +1,70 @@
+Verdant Falls:
+Stage 1: default
+Stage 2: default
+Stage 3: 
+	Remove Stone Golem and Stone Titan
+	Add Grovetender
+	Add Jellyfish
+Stage 4:
+	Remove Stone Golem and Stone Titan
+	Add Grovetender
+	Add Jellyfish
+	Add Gup
+Stage 5:
+	Remove Stone Golem and Stone Titan
+	Add Grovetender
+	Add Jellyfish
+	Add Gup
+	Add Elder Lemurian
+
+Viscous Falls:
+All default
+
+Shattered Abodes:
+Stage 1: default
+Stage 2: default
+Stage 3:
+	Add parent
+Stage 4: 
+	Remove jellyfish
+	Add parent
+	Add grandparent
+	Add elder lemurian
+Stage 5:
+	Remove jellyfish
+	Add parent
+	Add grandparent
+	Add elder lemurian
+
+
+Reformed Altar:
+Stage 1: default
+Stage 2: default
+Stage 3:
+	Remove Wandering Vagrant
+	Add Magma Wurm
+Stage 4:
+	Remove Wandering Vagrant
+	Add Magma Wurm
+Stage 5:
+	Remove Wandering Vagrant
+	Add Magma Wurm
+	Remove Stone Titan
+	Add Clay Dunestrider
+
+Treeborn Colony:
+Stage 1:
+	Remove Xi Construct/Grovetender
+	Remove Brass Contraption
+	Remove Clay Apothecary
+	Add Lemurian
+Stage 2:
+	Remove Xi Construct
+Stage 3: default
+Stage 4: 
+	Add Grovetender alongside Xi Construct
+Stage 5:
+	Remove Beetle, Beetle Guard, Beetle Queen
+	Add Grovetender alongside Xi Construct
+	
+	

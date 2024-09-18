@@ -9,7 +9,14 @@ Currently featuring:
 - A configurable way to change which stage Shattered Abodes/Distrubed Impact. By default 2.
 - A configurable way to add Reformed Altar and Treeborn Colony to the regular stage pool(by default stage 2 and 3 respectively)
 - A config option to make night variations alternate versions of stages instead of looped versions
+- Risk of Options support!
 
 # Bugs
 This is an unfinished mod, there are bound to be bugs. Ping IEye on the modding server and I will try to fix them.
+
+# Credits
+- IEye as the developer
+- Jeffdev and mewo for ideas
+- JaceDaDorito for helping me clean my code up
+- Cap_ for being a youtuber that made a bug report
 
